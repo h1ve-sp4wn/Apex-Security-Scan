@@ -1,0 +1,9 @@
+requests
+tenacity
+subprocess
+requests
+fpdf
+python-owasp-zap-v2.4
+hashlib
+logging
+retrying
