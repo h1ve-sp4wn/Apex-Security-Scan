@@ -126,7 +126,7 @@ def test_vulnerabilities(target_url):
             "message": "XXE vulnerability detected"
         },
         "SSRF": {
-            "payload": "http://localhost:8080/admin",  # Targeting an internal service
+            "payload": "http://localhost:8080/admin",
             "method": "GET",
             "params": {'url': "http://localhost:8080"},
             "check": lambda response: response.status_code == 200 and "admin" in response.text,
@@ -267,7 +267,7 @@ def ai_based_threat_detection(network_traffic_data):
         model.fit(network_traffic_data)
         anomalies = model.predict(network_traffic_data)
 
-        anomaly_indices = np.where(anomalies == -1)[0]  # Indices of anomalous instances
+        anomaly_indices = np.where(anomalies == -1)[0]
         if anomaly_indices.size > 0:
             log_results(f"Anomalies detected at indices: {anomaly_indices}")
         else:
@@ -283,7 +283,7 @@ def integrate_threat_intelligence(target_ip):
     headers = {"x-apikey": VIRUSTOTAL_API_KEY}
     
     attempt = 0
-    while attempt < 3:  # Retry up to 3 times
+    while attempt < 3:
         try:
             response = requests.get(f"{VIRUSTOTAL_URL}{target_ip}", headers=headers)
             if response.status_code == 200:
@@ -413,7 +413,7 @@ def scan_web_vulnerabilities(target_url):
 async def port_scanner_async(ip):
     try:
         scanner = nmap.PortScanner()
-        scanner.scan(ip, '1-1024')  # Scanning ports 1-1024
+        scanner.scan(ip, '1-1024')
         open_ports = [port for port in scanner[ip]['tcp'] if scanner[ip]['tcp'][port]['state'] == 'open']
         return open_ports
     except Exception as e:
@@ -429,7 +429,7 @@ def check_service_versions(ip, ports, retries=3, timeout=5):
                 sock = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
                 sock.settimeout(timeout)
                 sock.connect((ip, port))
-                sock.sendall(b'HEAD / HTTP/1.1\r\n\r\n')  # Send a simple HTTP request for banner
+                sock.sendall(b'HEAD / HTTP/1.1\r\n\r\n')
                 banner = sock.recv(1024).decode().strip()
                 if not banner:
                     banner = "No banner received"
